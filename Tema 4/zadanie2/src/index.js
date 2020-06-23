@@ -45,11 +45,13 @@ app
         r.session = null;   
         r.res.redirect('/login');
     })
-  .get(/users/, checkAuth, async r => r.res.render('list', { title: 'Список логинов', items }))
-  .use(r => r.res.status(404).end('Still not here, sorry!'))
-  .use((e, r, res, n) => res.status(500).end(`Error: ${e}`))
-  .set('view engine', 'pug')
-  .listen(process.env.PORT || PORT, async () => {
-    console.log(`Старт процесса: ${process.pid}`);
-    ({ data: { users: items } } = await get(URL)); 
-  });
+    .get('/author', r =>{
+        r.res.send('%D0%9F%D0%BE%D0%BB%D0%B8%D0%BD%D0%B0%20%D0%9B%D0%B0%D0%B7%D0%B5%D0%B1%D0%BD%D0%B8%D0%BA%D0%BE%D0%B2%D0%B0');
+    })
+    .use(r => r.res.status(404).end('Still not here, sorry!'))
+    .use((e, r, res, n) => res.status(500).end(`Error: ${e}`))
+    .set('view engine','pug')
+    .listen(process.env.PORT || PORT, async () => {
+        console.log(`Старт процесса ${process.pid}`);
+        ({ data: { users: items } } = await get(URL));
+    });
